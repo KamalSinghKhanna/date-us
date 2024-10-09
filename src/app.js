@@ -1,20 +1,17 @@
 const express = require("express");
-const { authAdmin, authUser } = require("../middleware/auth");
 
 const app = express();
-// app.use("/admin", authAdmin);
-app.get("/admin/getAllData", authAdmin, (req, res) => {
-  //logic if the req is authorized or validate token
 
-  res.send("all data sent");
-});
-app.delete("/admin/deleteUser", (req, res) => {
+app.get("/getUserData", (req, res) => {
+  throw new Error("error");
   res.end("delete user");
 });
-app.get("/user", authUser ,(req, res) => {
-  res.end("delete user");
+app.use("/", (err, req, res, next) => {
+  if (err) {
+    console.log(err)
+    res.status(500).send("something went wrong");
+  }
 });
-
 app.listen(3000, () => {
   console.log("server listining");
 });
