@@ -2,19 +2,25 @@ const express = require("express");
 
 const app = express();
 
-// app.use(express.json());
+app.use("/user", [
+  (req, res, next) => {
+    console.log("result");
 
-app.use("/", (req, res, next) => {
-    next()
-  res.send("Hi from dash");
+    // res.send("router handler 1")
+    next();
+  },
+  (req, res, next) => {
+    console.log("result2");
+    // res.send("router handler 2");
+    next();
+  },
+  (req, res, next) => {
+    console.log("result3");
+    res.send("router handler 3");
+    next();
+  },
+]);
 
-});
-app.use("/test", (req, res) => {
-  res.send("Hi from express");
-});
-app.use("/kamal", (req, res) => {
-  res.send("Hi from kamal");
-});
 app.listen(3000, () => {
   console.log("server listining");
 });
